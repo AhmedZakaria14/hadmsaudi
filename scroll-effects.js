@@ -3,6 +3,7 @@
   if (reduceMotion) return;
 
   const root = document.documentElement;
+  const isDirectSectionLoad = Boolean(window.location.hash);
   root.classList.add('motion-ready');
 
   const splitWords = (element) => {
@@ -56,22 +57,39 @@
   register('.about-actions, .center', 'rise');
 
   const revealAll = () => document.querySelectorAll('[data-reveal]').forEach((element) => element.classList.add('is-visible'));
-  const revealObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add('is-visible');
-      observer.unobserve(entry.target);
+  const revealInViewport = () => {
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    document.querySelectorAll('[data-reveal]').forEach((element) => {
+      const rect = element.getBoundingClientRect();
+      if (rect.top < viewportHeight * 1.08 && rect.bottom > -viewportHeight * .08) element.classList.add('is-visible');
     });
-  }, { threshold: 0.01, rootMargin: '0px 0px -2% 0px' });
-  queue.forEach((element) => revealObserver.observe(element));
+  };
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.01, rootMargin: '0px 0px -2% 0px' });
+    queue.forEach((element) => revealObserver.observe(element));
+  } else {
+    revealAll();
+  }
 
   const hero = document.querySelector('.hero-content');
   if (hero) requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.add('is-visible')));
   window.setTimeout(() => {
     if (hero) hero.classList.add('is-visible');
-    revealAll();
-  }, 1800);
-  window.addEventListener('pageshow', () => window.setTimeout(revealAll, 100));
+    revealInViewport();
+  }, 350);
+  if (isDirectSectionLoad) {
+    window.setTimeout(() => {
+      revealAll();
+      root.classList.remove('motion-ready');
+    }, 80);
+  }
+  window.addEventListener('pageshow', () => window.setTimeout(revealInViewport, 100));
 
   const parallaxElements = [
     [document.querySelector('.hero-bg'), 0.10],
