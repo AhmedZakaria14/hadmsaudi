@@ -1,0 +1,15 @@
+/* Header refinement: one coherent navigation system rather than scattered controls over the hero. */
+@media (min-width: 721px){
+  .header{display:flex;align-items:center;justify-content:space-between;gap:32px;min-height:96px;padding:24px 34px!important}
+  .header .brand{flex:0 0 auto;order:1}
+  .header-links{order:2;display:flex;align-items:center;gap:7px;padding:6px 6px 6px 8px;border:1px solid rgba(255,255,255,.16);background:rgba(8,22,42,.32);backdrop-filter:blur(15px);border-radius:999px;box-shadow:0 10px 32px rgba(4,11,23,.13)}
+  .header .nav{display:flex;align-items:center;justify-content:center;gap:0;margin:0;padding:0 8px;position:static!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;transform:none!important;background:transparent!important;border:0!important;box-shadow:none!important}
+  .header .nav a{display:flex;align-items:center;min-height:40px;padding:0 14px;font-family:"IBM Plex Sans Arabic","DM Sans",sans-serif;font-size:13px;font-weight:700;white-space:nowrap}
+  .header .nav a:after{bottom:5px;right:14px;left:14px;width:auto;transform:scaleX(0);transform-origin:right}.header .nav a:hover:after{transform:scaleX(1)}
+  .header-call{display:inline-flex!important;align-items:center;justify-content:center;gap:8px;min-height:43px;padding:0 18px!important;border-radius:999px;background:var(--ref-yellow)!important;color:var(--ref-navy)!important;font-size:13px;white-space:nowrap;transition:transform .2s ease,background .2s ease!important}.header-call:hover{background:#fff!important;transform:translateY(-2px)}.header-call span{font-size:16px;color:inherit!important}
+  .header .menu-button,.header .menu-backdrop{display:none!important}
+}
+@media (max-width: 720px){
+  .header{display:flex!important;align-items:center;justify-content:space-between;gap:14px}.header .brand{order:1}.header .menu-button{order:2}.header-links{display:contents}.header-links .header-call{display:none!important}
+  .header-links .nav{right:15px!important;left:15px!important}
+}
