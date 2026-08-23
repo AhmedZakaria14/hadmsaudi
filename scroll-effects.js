@@ -55,17 +55,23 @@
   register('.contact-info', 'from-left');
   register('.about-actions, .center', 'rise');
 
+  const revealAll = () => document.querySelectorAll('[data-reveal]').forEach((element) => element.classList.add('is-visible'));
   const revealObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
       entry.target.classList.add('is-visible');
       observer.unobserve(entry.target);
     });
-  }, { threshold: 0.14, rootMargin: '0px 0px -7% 0px' });
+  }, { threshold: 0.01, rootMargin: '0px 0px -2% 0px' });
   queue.forEach((element) => revealObserver.observe(element));
 
   const hero = document.querySelector('.hero-content');
   if (hero) requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.add('is-visible')));
+  window.setTimeout(() => {
+    if (hero) hero.classList.add('is-visible');
+    revealAll();
+  }, 1800);
+  window.addEventListener('pageshow', () => window.setTimeout(revealAll, 100));
 
   const parallaxElements = [
     [document.querySelector('.hero-bg'), 0.10],
