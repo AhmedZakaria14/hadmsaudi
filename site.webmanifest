@@ -1,0 +1,10 @@
+{
+  "name": "خدمات الرياض | ترميم وهدم ورفع مخلفات البناء",
+  "short_name": "خدمات الرياض",
+  "lang": "ar-SA",
+  "dir": "rtl",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fbfaf6",
+  "theme_color": "#202326"
+}

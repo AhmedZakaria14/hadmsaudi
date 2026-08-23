@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hadmsaudi-mc57.vercel.app/sitemap.xml
