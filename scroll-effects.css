@@ -31,3 +31,30 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+@media (max-width: 720px) and (prefers-reduced-motion: no-preference) {
+  .motion-ready [data-reveal] { transition-duration: 620ms; }
+  .motion-ready [data-reveal="rise"], .motion-ready [data-reveal="from-right"], .motion-ready [data-reveal="from-left"] { transform: translate3d(0, 32px, 0); }
+  .motion-ready [data-reveal="image-reveal"] { clip-path: inset(0 0 14% 0 round 0 0 20px 20px); transform: translate3d(0, 26px, 0); transition: clip-path 760ms cubic-bezier(.77,0,.175,1), transform 760ms cubic-bezier(.23,1,.32,1); }
+  .motion-ready [data-reveal="image-reveal"].is-visible { clip-path: inset(0 0 0 0 round 0 0 20px 20px); transform: translate3d(0, 0, 0); }
+  .motion-ready [data-reveal="image-reveal"] > img { transform: scale(1.06); transition-duration: 800ms; }
+  .motion-ready [data-reveal="heading"] .word { transform: translate3d(0, 18px, 0); transition-duration: 520ms; }
+}
+
+/* Never gate desktop media behind IntersectionObserver: delayed observers should not blank images. */
+@media (min-width: 721px) {
+  .motion-ready .service-card,
+  .motion-ready .work-card,
+  .motion-ready .about-art,
+  .motion-ready .why-images,
+  .motion-ready .faq-art {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+  .motion-ready .about-art > img,
+  .motion-ready .why-images > img,
+  .motion-ready .faq-art > img {
+    transform: none !important;
+  }
+}

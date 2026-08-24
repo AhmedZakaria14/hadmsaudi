@@ -83,9 +83,16 @@
     if (hero) hero.classList.add('is-visible');
     revealInViewport();
   }, 350);
+  // A safety release keeps visual media visible if an observer is delayed,
+  // blocked by a browser extension, or the page is opened after a restore.
+  const guaranteeVisible = () => {
+    revealAll();
+    root.classList.add('motion-complete');
+  };
+  window.setTimeout(guaranteeVisible, 1250);
   if (isDirectSectionLoad) {
     window.setTimeout(() => {
-      revealAll();
+      guaranteeVisible();
       root.classList.remove('motion-ready');
     }, 80);
   }
