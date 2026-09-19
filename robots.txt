@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /dashboard/
 
-Sitemap: https://hadmsaudi-mc57.vercel.app/sitemap.xml
+Sitemap: https://www.tarmemalriyadh.com/sitemap.xml
