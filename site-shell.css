@@ -1,0 +1,6 @@
+.site-shell-header{position:relative;z-index:40;background:#202326;color:#fff}
+.site-shell-header .header{position:relative;max-width:1395px;margin:auto}
+.site-shell-header .header-links{background:rgba(8,22,42,.56)}
+.site-shell-header .brand,.site-shell-header .nav a{color:#fff}
+.site-shell-header+.page-hero,.site-shell-header+.service-hero,.site-shell-header+main>.blog-hero{margin-top:0}
+@media(max-width:720px){.site-shell-header .header{padding:16px 20px!important;min-height:82px}.site-shell-header .menu-button{display:grid}.site-shell-header .nav{display:flex}.site-shell-header .brand{color:#fff}}
