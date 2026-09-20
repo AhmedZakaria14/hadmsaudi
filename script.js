@@ -2,13 +2,24 @@
   const menuButton = document.querySelector('.menu-button');
   const nav = document.querySelector('.nav');
   const menuBackdrop = document.querySelector('.menu-backdrop');
-  const closeMenu = () => {
+  let menuClose = nav?.querySelector('.menu-close');
+  if (nav && !menuClose) {
+    menuClose = document.createElement('button');
+    menuClose.className = 'menu-close';
+    menuClose.type = 'button';
+    menuClose.setAttribute('aria-label', 'إغلاق القائمة');
+    menuClose.innerHTML = '<span aria-hidden="true">×</span>';
+    nav.prepend(menuClose);
+  }
+  const closeMenu = (restoreFocus = true) => {
+    const wasOpen = nav?.classList.contains('open');
     nav?.classList.remove('open');
     menuButton?.classList.remove('is-open');
     menuBackdrop?.classList.remove('is-active');
     document.body.classList.remove('menu-open');
     menuButton?.setAttribute('aria-expanded', 'false');
     menuButton?.setAttribute('aria-label', 'فتح القائمة');
+    if (restoreFocus && wasOpen) menuButton?.focus({ preventScroll: true });
   };
   const toggleMenu = () => {
     const isOpen = nav?.classList.toggle('open');
@@ -17,10 +28,13 @@
     document.body.classList.toggle('menu-open', isOpen);
     menuButton?.setAttribute('aria-expanded', String(isOpen));
     menuButton?.setAttribute('aria-label', isOpen ? 'إغلاق القائمة' : 'فتح القائمة');
+    if (isOpen) window.requestAnimationFrame(() => menuClose?.focus({ preventScroll: true }));
   };
   menuButton?.addEventListener('click', toggleMenu);
+  menuClose?.addEventListener('click', closeMenu);
   menuBackdrop?.addEventListener('click', closeMenu);
   document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeMenu(); });
+  window.addEventListener('resize', () => { if (window.innerWidth > 720) closeMenu(false); }, { passive: true });
   document.querySelectorAll('.nav a').forEach((link) => link.addEventListener('click', closeMenu));
   document.querySelectorAll('.accordion article').forEach((item) => {
     item.querySelector('button')?.addEventListener('click', () => {
